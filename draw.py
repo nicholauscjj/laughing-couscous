@@ -39,3 +39,18 @@ def plot_gmm(gmm, X, idx=None, label=True, ax=None):
     
     plt.savefig('foo.png')
     plt.show()
+
+def plot_kmeans(kmeans, X, n_clusters, rseed=0, ax=None):
+    labels = kmeans.fit_predict(X)
+
+    # plot the input data
+    ax = ax or plt.gca()
+    ax.axis('equal')
+    ax.scatter(X[:, 0], X[:, 1], c=labels, s=40, cmap='viridis', zorder=2)
+
+    # plot the representation of the KMeans model
+    centers = kmeans.cluster_centers_
+    radii = [cdist(X[labels == i], [center]).max()
+             for i, center in enumerate(centers)]
+    for c, r in zip(centers, radii):
+        ax.add_patch(plt.Circle(c, r, fc='#CCCCCC', lw=3, alpha=0.5, zorder=1))

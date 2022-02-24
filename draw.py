@@ -55,3 +55,6 @@ def plot_kmeans(kmeans, X, n_clusters, rseed=0, ax=None):
              for i, center in enumerate(centers)]
     for c, r in zip(centers, radii):
         ax.add_patch(plt.Circle(c, r, fc='#CCCCCC', lw=3, alpha=0.5, zorder=1))
+        
+    for i, txt in enumerate(range(1,11)):
+        ax.annotate(txt, (X[i][0], X[i][1]))
